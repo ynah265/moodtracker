@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %}Add a New Mood{% endblock %}
+
+{% block content %}
+  <h2>New Mood Entry</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+  </form>
+{% endblock %}

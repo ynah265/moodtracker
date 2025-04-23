@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block title %}{{ moodentry.mood }}{% endblock %}
+
+{% block content %}
+  <h2>{{ moodentry.mood }}</h2>
+  <p>{{ moodentry.journal_entry }}</p>
+  <a href="{% url 'mood_list' %}">← Back to all moods</a>
+{% endblock %}
