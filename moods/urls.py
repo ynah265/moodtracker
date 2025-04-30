@@ -1,14 +1,12 @@
 from django.urls import path
-from .views import MoodListView, MoodDetailView
-from .views import MoodCreateView
-from .views import MoodUpdateView
-from .views import MoodDeleteView
+from . import views
 
 urlpatterns = [
-    path('', MoodListView.as_view(), name='mood_list'),
-    path('<int:pk>/', MoodDetailView.as_view(), name='mood_detail'),
-    path('new/', MoodCreateView.as_view(), name='mood_new'),
-    path('<int:pk>/edit/', MoodUpdateView.as_view(), name='mood_edit'),
-    path('<int:pk>/delete/', MoodDeleteView.as_view(), name='mood_delete'),
-
+    path('', views.home, name='home'),
+    path('signup/', views.signup, name='signup'),
+    path('moods/', views.MoodListView.as_view(), name='mood_list'),
+    path('moods/new/', views.MoodCreateView.as_view(), name='mood_new'),
+    path('moods/<int:pk>/', views.MoodDetailView.as_view(), name='mood_detail'),
+    path('moods/<int:pk>/edit/', views.MoodUpdateView.as_view(), name='mood_edit'),
+    path('moods/<int:pk>/delete/', views.MoodDeleteView.as_view(), name='mood_delete'),
 ]

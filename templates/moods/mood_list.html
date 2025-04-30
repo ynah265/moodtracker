@@ -1,24 +1,31 @@
-{% extends "base.html" %}
+
+{% extends "base_generic.html" %}
+{% load static %}
 
 {% block title %}Your Mood Entries{% endblock %}
 
 {% block content %}
-  <h2>Your Mood Entries</h2>
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Your Mood Entries</h2>
+    <a href="{% url 'mood_new' %}" class="btn btn-success">+ Add Mood</a>
+</div>
 
-  <p><a href="{% url 'mood_new' %}"> + Add New Mood</a></p>
+{% if mood_list %}
+    <div class="list-group">
+        {% for mood in mood_list %}
+            <div class="list-group-item mb-3">
+                <h5 class="mb-1">{{ mood.date }} – {{ mood.mood|title }}</h5>
+                <p class="mb-2">{{ mood.journal_entry|default:"(No journal entry)" }}</p>
 
-  {% for mood in mood_list %}
-    <div>
-      <h3>
-        <a href="{% url 'mood_detail' mood.pk %}">{{ mood.mood }}</a>
-      </h3>
-      <p>{{ mood.journal_entry|truncatewords:10 }}</p>
-      <p>
-        <a href="{% url 'mood_edit' mood.pk %}"> Edit</a> |
-        <a href="{% url 'mood_delete' mood.pk %}"> Delete</a>
-      </p>
+                <div class="d-flex gap-2">
+                    <a href="{% url 'mood_detail' mood.pk %}" class="btn btn-outline-primary btn-sm">View</a>
+                    <a href="{% url 'mood_edit' mood.pk %}" class="btn btn-outline-warning btn-sm">Edit</a>
+                    <a href="{% url 'mood_delete' mood.pk %}" class="btn btn-outline-danger btn-sm">Delete</a>
+                </div>
+            </div>
+        {% endfor %}
     </div>
-  {% empty %}
-    <p>No mood entries yet. Click above to add one!</p>
-  {% endfor %}
+{% else %}
+    <p>You haven’t added any mood entries yet. Click “Add Mood” to get started!</p>
+{% endif %}
 {% endblock %}
